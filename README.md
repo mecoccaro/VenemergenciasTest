@@ -1,8 +1,8 @@
-# VenemergenciasTest
+# VenemergenciasTest :ambulance:
 Prueba realizada por Miguel Coccaro para la empresa Venemergencias.
 ## 
 ![](https://erguotou520.github.io/vue-version-badge/vue2.x.svg)
-## Instrucciones
+## Instrucciones :memo:
 
 * Tener instalado NodeJs
 * Clonar el proyecto
@@ -20,7 +20,7 @@ npm run serve
 ```
 Al terminar de compilar da dos rutas locales para poder probar meditante un explorador
 
-## Realizado por
+## Realizado por :alien:
 <p>
     <img
           alt="mecoccaro Github Avatar" 
