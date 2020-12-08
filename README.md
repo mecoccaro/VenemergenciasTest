@@ -6,7 +6,7 @@ Prueba realizada por Miguel Coccaro para la empresa Venemergencias.
 
 * Tener instalado NodeJs
 * Clonar el proyecto
-* Dirigirse a la ruta donde se clono el proyecto en la linea de comandos.
+* Dirigirse a la ruta donde se clono el proyecto, moverse a la subcarpeta llamada CLIENT y en la linea de comandos.
 * Realizar los siguientes comandos:
 
 ```
