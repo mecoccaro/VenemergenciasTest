@@ -2,8 +2,8 @@
   <div class="topnav">
     <img id="logo-nav" src="../assets/visa-logo.png" align="left">
     <div class="botones-nav">
-      <router-link class="active" to="/principal"><strong>Vista principal</strong></router-link>
-      <a href="#news">News</a>
+      <router-link to="/"><strong>Home</strong></router-link>
+      <router-link to="/principal"><strong>Vista principal</strong></router-link>
       <a href="#contact">Contact</a>
       <a href="#about">About</a>
     </div>
