@@ -15,9 +15,9 @@
               </thead>
               <tbody v-if="user">
               <tr >
-                <td><input id="name" class="inputInfo" type="text" name="name" v-model="form.newname" placeholder="new name"></td>
-                <td><input class="inputInfo" type="text" name="username" v-model="form.newusername" placeholder="new username"></td>
-                <td><input class="inputInfo" type="text" name="email" v-model="form.newemail" placeholder="new name"></td>
+                <td><input id="name" class="inputInfo" type="text" name="name" v-model="form.name" placeholder="new name"></td>
+                <td><input class="inputInfo" type="text" name="username" v-model="form.username" placeholder="new username"></td>
+                <td><input class="inputInfo" type="text" name="email" v-model="form.email" placeholder="new name"></td>
               </tr>
               </tbody>
               <thead>
@@ -29,9 +29,9 @@
               </thead>
               <tbody v-if="user">
               <tr>
-                <td><input class="inputInfo" type="text" name="Street" v-model="form.newstreet" placeholder="new street"></td>
-                <td><input class="inputInfo" type="text" name="Suite" v-model="form.newsuite" placeholder="new suite"></td>
-                <td><input class="inputInfo" type="text" name="City" v-model="form.newcity" placeholder="new city"></td>
+                <td><input class="inputInfo" type="text" name="Street" v-model="form.street" placeholder="new street"></td>
+                <td><input class="inputInfo" type="text" name="Suite" v-model="form.suite" placeholder="new suite"></td>
+                <td><input class="inputInfo" type="text" name="City" v-model="form.city" placeholder="new city"></td>
               </tr>
               </tbody>
               <thead>
@@ -43,9 +43,9 @@
               </thead>
               <tbody v-if="user">
               <tr>
-                <td><input class="inputInfo" type="text" name="Zipcode" v-model="form.newzipcode" placeholder="new zipcode"></td>
-                <td><input class="inputInfo" type="text" name="Phone" v-model="form.newphone" placeholder=" new phone"></td>
-                <td><input class="inputInfo" type="text" name="Website" v-model="form.newwebsite" placeholder="new website"></td>
+                <td><input class="inputInfo" type="text" name="Zipcode" v-model="form.zipcode" placeholder="new zipcode"></td>
+                <td><input class="inputInfo" type="text" name="Phone" v-model="form.phone" placeholder=" new phone"></td>
+                <td><input class="inputInfo" type="text" name="Website" v-model="form.website" placeholder="new website"></td>
               </tr>
               </tbody>
             </table>
@@ -53,9 +53,11 @@
             <button v-on:click="deleteRequest">Delete User</button>
           </div>
           <div class="success" v-if="resp">
-            <p v-for="res in resp" :key="res.id">
-              {{res}}
+            <h3 v-if="msg2">User updated</h3>
+            <p v-for="(key,res) in resp" :key="res.name">
+               {{res}}: {{key}}
             </p>
+            <button class="btn btn-small btn-brand" v-on:click="hideAlert()">Close</button>
           </div>
           <div v-if="msg" class="alert">
             <p class="text-brand m-20">
@@ -77,19 +79,20 @@ export default {
   data() {
     return {
       msg: '',
+      msg2: null,
       user: [],
       form: {
-        newname: '',
-        newusername: '',
-        newemail: '',
-        newaddress: [{
-          newstreet: '',
-          newsuite: '',
-          newcity: '',
-          newzipcode: '',
-        }],
-        newphone: '',
-        newwebsite: '',
+        name: null,
+        username: null,
+        email: null,
+        address: {
+          street: null,
+          suite: null,
+          city: null,
+          zipcode: null,
+        },
+        phone: null,
+        website: null,
       },
       resp: [],
     }
@@ -108,14 +111,20 @@ export default {
   methods: {
 
     submitChange(){
+      if (this.form.name == null || this.form.username == null || this.form.email == null){
+        this.msg2 = 'No changes'
+        return ;
+      }
       axios
       .put('https://jsonplaceholder.typicode.com/users/'+this.$route.params.id,this.form)
       .then((res)=> {
         this.resp = res.data
+        this.msg2 = 'User Updated'
       })
       .catch((error)=> {
         throw error
       });
+
     },
     deleteRequest(){
       axios
