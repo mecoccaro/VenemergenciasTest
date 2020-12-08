@@ -16,7 +16,7 @@
               <tr v-for="user in users" :key="user.id">
                 <td>{{ user.name }}</td>
                 <td>{{ user.email }}</td>
-                <td><button><router-link :to="{name: '/user/:id', id: user.id}"><strong>+</strong></router-link></button></td>
+                <td><button><router-link :to="'/user/'+ user.id"><strong>+</strong></router-link></button></td>
               </tr>
               </tbody>
             </table>

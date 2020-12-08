@@ -17,9 +17,9 @@
 
 <script>
 import navbar from "@/components/navbar";
+import footerbar from "@/components/footerbar";
 import principalHome from "@/components/principalHome";
 import allUsers from "@/components/allUsers";
-import footerbar from "@/components/footerbar";
 
 export default {
   name: "Principal",

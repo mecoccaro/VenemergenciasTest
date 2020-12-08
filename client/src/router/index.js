@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Principal from "@/views/Principal";
-//import User from "@/views/User";
+import User from "@/views/User";
 
 Vue.use(VueRouter)
 
@@ -17,11 +17,11 @@ const routes = [
     name: 'Principal',
     component: Principal
   },
-  // {
-  //   path: '/user/:id',
-  //   name: 'User',
-  //   component: User
-  // }
+  {
+    path: '/user/:id',
+    name: 'User',
+    component: User
+  }
 ]
 
 const router = new VueRouter({
