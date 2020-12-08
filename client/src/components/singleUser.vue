@@ -8,49 +8,60 @@
             <table class="table">
               <thead>
               <tr>
-                <th>Name</th>
-                <th>Username</th>
-                <th>Email</th>
+                <th>Name: {{user.name}}</th>
+                <th>Username: {{user.username}}</th>
+                <th>Email: {{user.email}}</th>
               </tr>
               </thead>
               <tbody v-if="user">
               <tr >
-                <td><input class="inputInfo" type="text" name="name" v-model="user.name" placeholder="name"></td>
-                <td><input class="inputInfo" type="text" name="username" v-model="user.username" placeholder="username"></td>
-                <td><input class="inputInfo" type="text" name="email" v-model="user.email" placeholder="name"></td>
+                <td><input id="name" class="inputInfo" type="text" name="name" v-model="form.newname" placeholder="new name"></td>
+                <td><input class="inputInfo" type="text" name="username" v-model="form.newusername" placeholder="new username"></td>
+                <td><input class="inputInfo" type="text" name="email" v-model="form.newemail" placeholder="new name"></td>
               </tr>
               </tbody>
               <thead>
               <tr>
-                <th>Street</th>
-                <th>Suite</th>
-                <th>City</th>
+                <th>Street: {{user.address.street}}</th>
+                <th>Suite: {{user.address.suite}}</th>
+                <th>City: {{user.address.city}}</th>
               </tr>
               </thead>
               <tbody v-if="user">
               <tr>
-                <td><input class="inputInfo" type="text" name="Street" v-model="user.address.street" placeholder="street"></td>
-                <td><input class="inputInfo" type="text" name="Suite" v-model="user.address.suite" placeholder="suite"></td>
-                <td><input class="inputInfo" type="text" name="City" v-model="user.address.city" placeholder="city"></td>
+                <td><input class="inputInfo" type="text" name="Street" v-model="form.newstreet" placeholder="new street"></td>
+                <td><input class="inputInfo" type="text" name="Suite" v-model="form.newsuite" placeholder="new suite"></td>
+                <td><input class="inputInfo" type="text" name="City" v-model="form.newcity" placeholder="new city"></td>
               </tr>
               </tbody>
               <thead>
               <tr>
-                <th>Zipcode</th>
-                <th>Phone</th>
-                <th>Website</th>
+                <th>Zipcode: {{user.address.zipcode}}</th>
+                <th>Phone: {{user.phone}}</th>
+                <th>Website: {{user.website}}</th>
               </tr>
               </thead>
               <tbody v-if="user">
               <tr>
-                <td><input class="inputInfo" type="text" name="Zipcode" v-model="user.address.zipcode" placeholder="zipcode"></td>
-                <td><input class="inputInfo" type="text" name="Phone" v-model="user.phone" placeholder="phone"></td>
-                <td><input class="inputInfo" type="text" name="Website" v-model="user.website" placeholder="website"></td>
+                <td><input class="inputInfo" type="text" name="Zipcode" v-model="form.newzipcode" placeholder="new zipcode"></td>
+                <td><input class="inputInfo" type="text" name="Phone" v-model="form.newphone" placeholder=" new phone"></td>
+                <td><input class="inputInfo" type="text" name="Website" v-model="form.newwebsite" placeholder="new website"></td>
               </tr>
               </tbody>
             </table>
-            <button>Save</button>
-            <button>Delete User</button>
+            <button v-on:click="submitChange">Save</button>
+            <button v-on:click="deleteRequest">Delete User</button>
+          </div>
+          <div class="success" v-if="resp">
+            <p v-for="res in resp" :key="res.id">
+              {{res}}
+            </p>
+          </div>
+          <div v-if="msg" class="alert">
+            <p class="text-brand m-20">
+              {{msg}}
+              <button class="btn btn-small btn-brand" v-on:click="hideAlert()">Close</button>
+            </p>
           </div>
         </div>
       </div>
@@ -65,7 +76,22 @@ export default {
   name: "singleUser",
   data() {
     return {
+      msg: '',
       user: [],
+      form: {
+        newname: '',
+        newusername: '',
+        newemail: '',
+        newaddress: [{
+          newstreet: '',
+          newsuite: '',
+          newcity: '',
+          newzipcode: '',
+        }],
+        newphone: '',
+        newwebsite: '',
+      },
+      resp: [],
     }
   },
   created() {
@@ -74,12 +100,38 @@ export default {
         .get("https://jsonplaceholder.typicode.com/users/"+id)
         .then(response => {
           this.user = response.data;
-          console.log( this.user);
         })
         .catch(err => {
           throw err;
         });
-    console.log(this.user)
+  },
+  methods: {
+
+    submitChange(){
+      axios
+      .put('https://jsonplaceholder.typicode.com/users/'+this.$route.params.id,this.form)
+      .then((res)=> {
+        this.resp = res.data
+      })
+      .catch((error)=> {
+        throw error
+      });
+    },
+    deleteRequest(){
+      axios
+      .delete('https://jsonplaceholder.typicode.com/users/'+this.$route.params.id)
+      .then((res)=> {
+        this.msg = 'User eliminated'
+        this.resp = res.data
+      })
+      .catch((error)=> {
+        throw error
+      });
+
+    },
+    hideAlert(){
+      this.$router.push('/principal')
+    }
   }
 }
 </script>
@@ -94,8 +146,7 @@ export default {
 
 th, td{
   width: 40%;
-  padding-right: 5%;
-  padding-bottom: 5%;
+
   text-align: left;
 }
 </style>
