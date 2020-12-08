@@ -19,7 +19,7 @@ export default {
   font-family: Tahoma;
 }
 p{
-  width: 400px;
+  width: 80%;
   display: inline-block;
 }
 </style>

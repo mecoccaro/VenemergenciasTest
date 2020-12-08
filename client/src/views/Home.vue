@@ -13,6 +13,9 @@
     <div style="margin-top: 20px">
       <tabscenter></tabscenter>
     </div>
+    <div style="margin-top: 30px">
+      <carousel></carousel>
+    </div>
   </div>
 
 </template>
@@ -22,6 +25,7 @@ import navbar from "@/components/navbar";
 import toptext from "@/components/toptext";
 import card from "@/components/card";
 import tabscenter from "@/components/tabscenter";
+import carousel from "@/components/carousel";
 
 export default {
   name: 'Home',
@@ -29,20 +33,22 @@ export default {
     navbar,
     toptext,
     card,
-    tabscenter
+    tabscenter,
+    carousel
   }
 }
 </script>
 <style>
 .top{
-
   border-top-color: rgb(150,118,238);
   background: rgb(150,118,238);
   background: linear-gradient(90deg, rgba(150,118,238,1) 0%, rgba(122,56,200,1) 35%, rgba(140,7,246,1) 100%);
+  border-radius: 0 0 35% 35%;
+
 }
 
 #tdc{
-  width: 500px;
+  width: 50%;
   justify-content: center;
 }
 </style>
